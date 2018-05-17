@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c3418683-3084-4de7-b391-eef078ef0ab3" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/style/scss/components/_global.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/style/scss/components/_normalise.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/js/vendor/d3.v4.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/style/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/style/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/style/main.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/assets/style/main.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/style/scss/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/style/scss/main.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/vendor/d3.min.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -25,8 +23,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="19" column="17" lean-forward="true" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
+            <state relative-caret-position="320">
+              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
             </state>
           </provider>
         </entry>
@@ -40,11 +38,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_global.scss" pinned="false" current-in-tab="true">
+      <file leaf-file-name="_global.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/style/scss/components/_global.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+            <state relative-caret-position="145">
+              <caret line="20" column="16" lean-forward="true" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -58,13 +56,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="emulator.js" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Apps with Love/01_Projects/AWL-Dotnet/taptap/src/Application/wwwroot/js/emulator.js">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/assets/js/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="16">
-              <caret line="18" column="21" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
+            <state relative-caret-position="241">
+              <caret line="51" lean-forward="true" selection-start-line="51" selection-end-line="51" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="d3.v4.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/js/vendor/d3.v4.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="242">
+              <caret line="13360" column="13" selection-start-line="13360" selection-start-column="13" selection-end-line="13360" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TED_Talks_by_ID.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/data.world/TED_Talks_by_ID.csv">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="ted_main.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/kaggle/ted_main.csv">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -78,6 +95,15 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>views</find>
+      <find>length</find>
+      <find>sum</find>
+      <find>color</find>
+      <find>console.log</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -85,12 +111,13 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/assets/style/scss/_variables.scss" />
-        <option value="$PROJECT_DIR$/assets/js/index.js" />
         <option value="$USER_HOME$/Apps with Love/01_Projects/AWL-Dotnet/taptap/src/Application/wwwroot/js/emulator.js" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/assets/style/scss/components/_normalise.scss" />
         <option value="$PROJECT_DIR$/assets/style/scss/main.scss" />
         <option value="$PROJECT_DIR$/assets/style/scss/components/_global.scss" />
+        <option value="$PROJECT_DIR$/assets/js/vendor/d3.min.js" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/assets/js/index.js" />
       </list>
     </option>
   </component>
@@ -159,6 +186,23 @@
               <item name="scss" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="ivis-ted-visualization" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ivis-ted-visualization" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ivis-ted-visualization" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ivis-ted-visualization" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="data.world" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ivis-ted-visualization" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ivis-ted-visualization" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="kaggle" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -176,6 +220,9 @@
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/js/vendor" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/assets/style/scss/components" />
       <recent name="$PROJECT_DIR$/assets/js/vendor" />
@@ -206,12 +253,12 @@
       <workItem from="1526367421454" duration="2184000" />
       <workItem from="1526387426069" duration="664000" />
       <workItem from="1526546543233" duration="9000" />
-      <workItem from="1526585719233" duration="1023000" />
+      <workItem from="1526585719233" duration="7546000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3880000" />
+    <option name="totallyTimeSpent" value="10403000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="836" extended-state="0" />
@@ -307,10 +354,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/data/kaggle/ted_main.csv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/data.world/TED_Talks_by_ID.csv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/vendor/array.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/style/scss/components/_global.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="19" column="17" lean-forward="true" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
+        <state relative-caret-position="145">
+          <caret line="20" column="16" lean-forward="true" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -328,10 +384,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/style/scss/components/_global.scss">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+        <state relative-caret-position="320">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/vendor/d3.v4.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="13360" column="13" selection-start-line="13360" selection-start-column="13" selection-end-line="13360" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="51" lean-forward="true" selection-start-line="51" selection-end-line="51" />
         </state>
       </provider>
     </entry>
