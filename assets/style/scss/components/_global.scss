@@ -1,0 +1,31 @@
+body {
+  background: #f4f4f4;
+}
+
+h1, h2, h3, h4, p {
+  padding: 0;
+  margin: 0;
+}
+
+.header {
+  padding: 24px 0;
+  .logo {
+    max-width: 600px;
+    width: 90%;
+    margin: 0 auto;
+    display: block;
+  }
+}
+
+.card {
+  padding: 12px;
+  background: #fff;
+  max-width: 800px;
+  width: 90%;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+  display: block;
+  margin: 0 auto;
+
+  .card__inner {
+  }
+}
