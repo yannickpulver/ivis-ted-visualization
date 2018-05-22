@@ -1,0 +1,22 @@
+.select-style {
+  border-bottom: 1px solid #ccc;
+  display: inline-block;
+  //border-radius: 3px;
+  overflow: hidden;
+  padding: 0;
+  margin-bottom: -10px;
+  //background: #fafafa url("img/icon-select.png") no-repeat 90% 50%;
+}
+
+.select-style select {
+  padding: 0;
+  width: auto;
+  border: none;
+  box-shadow: none;
+  background: transparent none;
+  -webkit-appearance: none;
+}
+
+.select-style select:focus {
+  outline: none;
+}

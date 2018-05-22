@@ -4,19 +4,56 @@
     <meta charset="UTF-8">
     <title>The Secret Sauce Of TED Talks</title>
     <link rel="stylesheet" href="assets/style/main.css">
+    <link rel="stylesheet" href="https://use.typekit.net/ahi3pbr.css">
 </head>
 <body>
-
 <header class="header">
     <img src="assets/images/logo/logo.svg" alt="Logo" class="logo">
 </header>
 
 <section class="card">
 
-    <div id="canvas"></div>
-    <h1>Cool</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci at corporis deserunt dolor doloremque eaque
-        facilis inventore iure labore laborum modi omnis qui quis rem reprehenderit, sint sunt unde voluptatibus.</p>
+    <div class="selectable-sentence">
+        <p>I am a</p>
+        <div class="select-style">
+            <select name="job">
+                <option value="1">Whatever</option>
+                <option value="1">Photographer</option>
+                <option value="1">Scientist</option>
+            </select>
+        </div>
+        <p>that wants to hold</p>
+        <br>
+        <p> a talk about</p>
+        <div class="select-style">
+            <select name="category">
+                <option value="1">Whatever</option>
+                <option value="1">Technology</option>
+                <option value="1">Science</option>
+            </select>
+        </div>
+        <p>which should be</p>
+        <div class="select-style">
+            <select name="sentiment">
+                <option value="1">Whatever</option>
+                <option value="1">Funny</option>
+                <option value="1">Interesting</option>
+            </select>
+        </div>
+        </p>
+    </div>
+
+    <div id="canvas-bubbles"></div>
+
+    <p>Usually, talks about <span class="tag">#music</span> are rather <span class="tag">funny</span></p>
+    <div id="canvas-lines"></div>
+
+    <p>The most viewed talk about <span class="tag">#music</span> is <span
+            class="tag">Do schools kill creativity?</span>. The sentiment of this talk was <span class="tag">mostly positive</span>.
+        The average with this tag is <span class="tag">positive</span></p>
+    <div id="canvas-sentiment"></div>
+
+
 </section>
 
 <script src="assets/js/vendor/d3.v4.js"></script>

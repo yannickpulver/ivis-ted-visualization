@@ -360,8 +360,28 @@ canvas {
 template, [hidden] {
   display: none; }
 
+.select-style {
+  border-bottom: 1px solid #ccc;
+  display: inline-block;
+  overflow: hidden;
+  padding: 0;
+  margin-bottom: -10px; }
+
+.select-style select {
+  padding: 0;
+  width: auto;
+  border: none;
+  box-shadow: none;
+  background: transparent none;
+  -webkit-appearance: none; }
+
+.select-style select:focus {
+  outline: none; }
+
 body {
   background: #f4f4f4; }
+  body * {
+    font-family: "proxima-nova", sans-serif; }
 
 h1, h2, h3, h4, p {
   padding: 0;
@@ -370,7 +390,7 @@ h1, h2, h3, h4, p {
 .header {
   padding: 24px 0; }
   .header .logo {
-    max-width: 600px;
+    max-width: 400px;
     width: 90%;
     margin: 0 auto;
     display: block; }
@@ -383,5 +403,16 @@ h1, h2, h3, h4, p {
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
   display: block;
   margin: 0 auto; }
+
+.selectable-sentence {
+  padding-bottom: 24px; }
+  .selectable-sentence p, .selectable-sentence select {
+    display: inline-block;
+    font-size: 20px;
+    line-height: 1.5em; }
+  .selectable-sentence select {
+    font-weight: 700; }
+  .selectable-sentence p {
+    font-weight: 300; }
 
 /*# sourceMappingURL=main.css.map */
