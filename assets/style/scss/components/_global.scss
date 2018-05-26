@@ -53,7 +53,7 @@ h1, h2, h3, h4, p {
 div.tooltip {
   position: absolute;
   text-align: center;
-  padding: 8px 48px;
+  padding: 8px 24px;
   font-size: 12px;
   transform: translateX(-50%);
   color: #fff;
@@ -77,6 +77,12 @@ div.tooltip {
 .line {
   &:hover {
     stroke: $ted;
+  }
+}
+
+.circle {
+  &:hover {
+    fill: $ted !important;
   }
 }
 

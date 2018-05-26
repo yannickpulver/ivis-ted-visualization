@@ -25,7 +25,9 @@ let pack = d3.pack()
     .size([width, height])
     .padding(1.5);
 
-let currentData = "";
+let fullData = [];
+let currentData = [];
+let currentCategory = "";
 
 function visualizeData() {
     d3.csv("data/kaggle/ted_main_with_sentiment.csv", function (d) {
@@ -34,7 +36,37 @@ function visualizeData() {
     }, processData);
 }
 
-let buildDots = function (packed, topValue) {
+let buildDots = function (data) {
+    let topValue = 0;
+    let first = true;
+
+    let root = d3.hierarchy({children: data})
+        .sum(function (d) {
+            return d.views;
+        })
+        .each(function (d) {
+            if (first) {
+                first = false;
+            } else {
+                if (d.value > topValue) {
+                    topValue = d.value;
+                }
+            }
+
+            if (id = d.data.id) {
+                var id, i = id.lastIndexOf(".");
+                d.id = id;
+                d.package = id.slice(0, i);
+                d.class = id.slice(i + 1);
+            }
+        });
+
+    let packed = pack(root);
+
+    displayDots(packed, topValue)
+};
+
+let displayDots = function (packed, topValue) {
     let color = d3.scaleLinear()
         .domain([1, topValue])
         .range(['#ffb0ae', '#e53025'])
@@ -43,6 +75,8 @@ let buildDots = function (packed, topValue) {
     var div = d3.select("#canvas-bubbles").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0);
+
+    svgBubbles.selectAll(".node").remove();
 
     let node = svgBubbles.selectAll(".node")
         .data(packed.leaves())
@@ -59,12 +93,16 @@ let buildDots = function (packed, topValue) {
         })
         .on("mouseout", function (d) {
             div.style("opacity", 0);
+        })
+        .attr("onclick", function (d) {
+            return "window.open('" + d.data.url + "');"
         });
 
     let circle = node.append("circle")
         .attr("id", function (d) {
             return d.id;
         })
+        .attr("class", "circle")
         .attr("r", 0)
         .style("fill", function (d) {
             return color(d.value);
@@ -104,6 +142,7 @@ let displayLines = function (data) {
 
     var percentageScale = d3.scaleLinear().domain([0, sum]).rangeRound([0, 100]);
 
+
     var g = svgLines.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -117,16 +156,18 @@ let displayLines = function (data) {
     y.domain([0, d3.max(dataFormed, function (d) {
         return d.value;
     })]);
-    g.append("g")
+    let innerg = g.append("g")
         .attr("class", "axis axis--x")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x));
+
+    svgLines.selectAll(".bar").remove();
 
     g.selectAll(".bar")
         .data(dataFormed)
         .enter().append("rect")
         .attr("class", function (d) {
-            return "bar " + (y(d.value) === 0 ? "highest" : "")
+            return "bar" + (y(d.value) === 0 ? " highest" : "")
         })
         .attr("x", function (d) {
             return x(d.key);
@@ -162,7 +203,6 @@ let buildBars = function (data) {
                 jsonData[rating.name.replace(/\W/g, '')] = rating.count;
                 jsonData._all += rating.count;
             });
-
 
             f.ratingArray = jsonData;
         }
@@ -257,7 +297,7 @@ let buildSentimentCurves = function (data) {
         y = d3.scaleLinear().range([height, 0]).domain([1, 5]);
 
     var line = d3.line()
-        .curve(d3.curveNatural)
+        .curve(d3.curveBasis)
         .x(function (d) {
             return x(d.sentimentIndicator);
         })
@@ -275,6 +315,8 @@ let buildSentimentCurves = function (data) {
         .call(d3.axisLeft(y))
         .append("text")
         .attr("fill", "#000");
+
+    svgSentiment.selectAll(".sentimentValue").remove();
 
 
     var goodOldLine = g.selectAll(".sentimentValue")
@@ -306,33 +348,63 @@ let buildSentimentCurves = function (data) {
 function processData(error, data) {
     if (error) throw error;
     currentData = data;
+    fullData = data;
+    buildCategorySelect(data);
 
-    let topValue = 0;
-    let first = true;
+    rebuild(data);
+}
 
-    let root = d3.hierarchy({children: data})
-        .sum(function (d) {
-            return d.views;
-        })
-        .each(function (d) {
-            if (first) {
-                first = false;
+
+function buildCategorySelect(data) {
+    let tags = {};
+    data.forEach(function (x) {
+        let elements = JSON.parse(x.tags);
+        elements.forEach(function (y) {
+            if (tags[y]) {
+                tags[y].value += 1;
             } else {
-                if (d.value > topValue) {
-                    topValue = d.value;
-                }
-            }
-
-            if (id = d.data.id) {
-                var id, i = id.lastIndexOf(".");
-                d.id = id;
-                d.package = id.slice(0, i);
-                d.class = id.slice(i + 1);
+                var obj = {};
+                obj['key'] = y;
+                obj['value'] = 1;
+                tags[y] = obj;
             }
         });
+    });
 
-    let packed = pack(root);
-    buildDots(packed, topValue);
+    tags = d3.values(tags).sort(function (a, b) {
+        return d3.descending(+a.value, +b.value);
+    }).slice(0, 40);
+
+    var selectObject = document.getElementById("select-category");
+
+    tags.forEach(function (y) {
+        let option = document.createElement("option");
+        option.text = y.key;
+
+        selectObject.add(option);
+    });
+}
+
+function buildSentimentCategory(data) {
+
+}
+
+
+function onChangeCategory() {
+    var e = document.getElementById("select-category");
+    currentCategory = e.options[e.selectedIndex].value;
+    currentData = fullData.filter(function (d) {
+        return d.tags.includes(currentCategory)
+    });
+
+    console.log(currentData.length);
+
+
+    rebuild(currentData);
+}
+
+function rebuild(data) {
+    buildDots(data);
     buildBars(data);
     buildSentimentCurves(data);
 }

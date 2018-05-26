@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c3418683-3084-4de7-b391-eef078ef0ab3" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/style/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/style/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/style/main.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/assets/style/main.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/style/scss/components/_global.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/style/scss/components/_global.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,8 +23,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="53" column="13" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="29" />
+            <state relative-caret-position="156">
+              <caret line="24" column="26" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -30,11 +32,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/js/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="57" column="39" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
-              <folding>
-                <element signature="n#!!block;n#visualizeData#0" />
-              </folding>
+            <state relative-caret-position="230">
+              <caret line="97" selection-start-line="97" selection-end-line="97" />
             </state>
           </provider>
         </entry>
@@ -42,8 +41,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/style/scss/components/_global.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="466">
-              <caret line="74" column="1" lean-forward="true" selection-start-line="74" selection-start-column="1" selection-end-line="74" selection-end-column="1" />
+            <state relative-caret-position="1151">
+              <caret line="84" column="26" selection-start-line="84" selection-start-column="26" selection-end-line="84" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -86,8 +85,18 @@
       <find>object.</find>
       <find>object.keys</find>
       <find>buildSentimentCurves</find>
-      <find>line</find>
       <find>mouseover</find>
+      <find>circle</find>
+      <find>object</find>
+      <find>object</find>
+      <find>for</find>
+      <find>.sort</find>
+      <find>bar</find>
+      <find>remove</find>
+      <find>select</find>
+      <find>line</find>
+      <find>buildsenti</find>
+      <find>bubble</find>
     </findStrings>
     <replaceStrings>
       <replace>return d2 === undefined ? 0 : 100 / d2._all *</replace>
@@ -107,8 +116,8 @@
         <option value="$PROJECT_DIR$/assets/style/scss/components/_components.scss" />
         <option value="$PROJECT_DIR$/assets/js/vendor/d3.tip.js" />
         <option value="$PROJECT_DIR$/assets/style/scss/components/_variables.scss" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/assets/style/scss/components/_global.scss" />
+        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/assets/js/index.js" />
       </list>
     </option>
@@ -119,15 +128,17 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
+    <option name="y" value="22" />
     <option name="width" value="1440" />
-    <option name="height" value="900" />
+    <option name="height" value="836" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -195,7 +206,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -251,18 +261,19 @@
       <workItem from="1527188138018" duration="4951000" />
       <workItem from="1527272616677" duration="499000" />
       <workItem from="1527311436935" duration="3528000" />
-      <workItem from="1527335710229" duration="2232000" />
+      <workItem from="1527335710229" duration="3001000" />
+      <workItem from="1527339803979" duration="5144000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41351000" />
+    <option name="totallyTimeSpent" value="47264000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="836" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28898427" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2932761" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -273,8 +284,8 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.4899857" visible="true" weight="0.2926491" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5100143" side_tool="true" visible="true" weight="0.2926491" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4892704" visible="true" weight="0.2926491" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5107296" side_tool="true" visible="true" weight="0.2926491" />
       <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.49928468" weight="0.32871014" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -332,8 +343,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="53" column="13" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="29" />
+        <state relative-caret-position="156">
+          <caret line="24" column="26" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -346,18 +357,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/style/scss/components/_global.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="74" column="1" lean-forward="true" selection-start-line="74" selection-start-column="1" selection-end-line="74" selection-end-column="1" />
+        <state relative-caret-position="1151">
+          <caret line="84" column="26" selection-start-line="84" selection-start-column="26" selection-end-line="84" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="57" column="39" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
-          <folding>
-            <element signature="n#!!block;n#visualizeData#0" />
-          </folding>
+        <state relative-caret-position="230">
+          <caret line="97" selection-start-line="97" selection-end-line="97" />
         </state>
       </provider>
     </entry>

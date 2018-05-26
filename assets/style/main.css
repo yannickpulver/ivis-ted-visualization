@@ -418,7 +418,7 @@ h1, h2, h3, h4, p {
 div.tooltip {
   position: absolute;
   text-align: center;
-  padding: 8px 48px;
+  padding: 8px 24px;
   font-size: 12px;
   transform: translateX(-50%);
   color: #fff;
@@ -436,5 +436,8 @@ div.tooltip {
 
 .line:hover {
   stroke: #e62b1e; }
+
+.circle:hover {
+  fill: #e62b1e !important; }
 
 /*# sourceMappingURL=main.css.map */
