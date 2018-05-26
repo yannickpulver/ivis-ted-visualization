@@ -10,7 +10,12 @@ const svgLines = d3.select("#canvas-lines").append("svg")
     .attr("height", canvHeight)
     .style("border", "1px solid #ccc");
 
-const margin = {top: 20, right: 20, bottom: 20, left: 50};
+const svgSentiment = d3.select("#canvas-sentiment").append("svg")
+    .attr("width", canvWidth)
+    .attr("height", canvHeight)
+    .style("border", "1px solid #ccc");
+
+const margin = {top: 20, right: 20, bottom: 20, left: 20};
 const width = canvWidth - margin.left - margin.right;
 const height = canvHeight - margin.top - margin.bottom;
 
@@ -22,9 +27,8 @@ let pack = d3.pack()
 
 let currentData = "";
 
-
 function visualizeData() {
-    d3.csv("data/kaggle/ted_main_wrangled.csv", function (d) {
+    d3.csv("data/kaggle/ted_main_with_sentiment.csv", function (d) {
         d.views = +d.views;
         if (d.views) return d;
     }, processData);
@@ -85,32 +89,37 @@ let displayLines = function (data) {
     var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
         y = d3.scaleLinear().rangeRound([height, 0]);
 
+
+    var sum = d3.sum(dataFormed, function (d) {
+        return d.value;
+    });
+
+    var percentageScale = d3.scaleLinear().domain([0, sum]).rangeRound([0, 100]);
+
     var g = svgLines.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var div = d3.select("#canvas-lines").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
 
     x.domain(d3.values(dataFormed).map(function (d) {
         return d.key;
     }));
-    y.domain([0, d3.max(dataFormed, function(d) { return d.value; })]);
+    y.domain([0, d3.max(dataFormed, function (d) {
+        return d.value;
+    })]);
     g.append("g")
         .attr("class", "axis axis--x")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x));
 
-    g.append("g")
-        .attr("class", "axis axis--y")
-        .call(d3.axisLeft(y).ticks(10, "%"))
-        .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", "0.71em")
-        .attr("text-anchor", "end")
-        .text("Frequency");
-
     g.selectAll(".bar")
         .data(dataFormed)
         .enter().append("rect")
-        .attr("class", "bar")
+        .attr("class", function (d) {
+            return "bar " + (y(d.value) === 0 ? "highest" : "")
+        })
         .attr("x", function (d) {
             return x(d.key);
         })
@@ -120,9 +129,17 @@ let displayLines = function (data) {
         .attr("width", x.bandwidth())
         .attr("height", function (d) {
             return height - y(d.value);
+        })
+        .on("mouseover", function (d) {
+            div.html(percentageScale(d.value) + "%")
+                .style("opacity", .9)
+                .style("left", (x(d.key) + x.bandwidth()) + "px")
+                .style("top", (y(d.value) - 20) + "px");
+        })
+        .on("mouseout", function (d) {
+            div.style("opacity", 0);
         });
 };
-
 
 let buildBars = function (data) {
     data.forEach(function (f) {
@@ -201,6 +218,70 @@ let buildBars = function (data) {
 
 };
 
+let buildSentimentCurves = function (data) {
+
+    let dataFormed = d3.values(data).map(function (d, i) {
+        let niceObject = [];
+        niceObject.url = d.url
+        let niceData = [];
+        for (let j = 1; j <= 5; j++) {
+            let dataF = {};
+            dataF.sentimentIndicator = j;
+            dataF.sentimentValue = Number(d["sentiment" + j]);
+            niceData.push(dataF);
+        }
+        niceObject.values = niceData;
+        return niceObject;
+    });
+
+    var g = svgSentiment.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var x = d3.scaleTime().range([0, width]).domain([1, 5]),
+        y = d3.scaleLinear().range([height, 0]).domain([1, 5]);
+
+    var line = d3.line()
+        .curve(d3.curveBasis)
+        .x(function (d) {
+            return x(d.sentimentIndicator);
+        })
+        .y(function (d) {
+            return y(d.sentimentValue);
+        });
+
+
+    //dataFormed = dataFormed.slice(1, 2);
+//console.log(dataFormed);
+
+    g.append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+    g.append("g")
+        .attr("class", "axis axis--y")
+        .call(d3.axisLeft(y))
+        .append("text")
+        .attr("fill", "#000");
+
+
+    var goodOldLine = g.selectAll(".sentimentValue")
+        .data(dataFormed)
+        .enter().append("g")
+        .attr("class", "sentimentValue");
+
+    goodOldLine.append("path")
+        .attr("class", "line")
+        .attr("d", function (d) {
+            return line(d.values);
+        })
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-linejoin", "round")
+        .attr("stroke-linecap", "round")
+        .attr("stroke-width", 1.5);
+};
+
 function processData(error, data) {
     if (error) throw error;
     currentData = data;
@@ -210,10 +291,6 @@ function processData(error, data) {
 
     let root = d3.hierarchy({children: data})
         .sum(function (d) {
-            // if (d.tags !== undefined) {
-            //     let dataObj = JSON.parse(d.tags);
-            // }
-            //console.log(dataObj);
             return d.views;
         })
         .each(function (d) {
@@ -235,8 +312,8 @@ function processData(error, data) {
 
     let packed = pack(root);
     buildDots(packed, topValue);
-
     buildBars(data);
+    buildSentimentCurves(data);
 }
 
 visualizeData();

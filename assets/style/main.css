@@ -415,4 +415,23 @@ h1, h2, h3, h4, p {
   .selectable-sentence p {
     font-weight: 300; }
 
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  padding: 8px 48px;
+  font-size: 12px;
+  transform: translateX(-50%);
+  color: #fff;
+  background: #000000;
+  border: 0;
+  pointer-events: none; }
+
+.bar {
+  fill: #d7d7d7; }
+  .bar.highest, .bar:hover {
+    fill: #e62b1e; }
+
+.canvas {
+  position: relative; }
+
 /*# sourceMappingURL=main.css.map */
