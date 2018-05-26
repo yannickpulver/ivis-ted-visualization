@@ -434,4 +434,7 @@ div.tooltip {
 .canvas {
   position: relative; }
 
+.line:hover {
+  stroke: #e62b1e; }
+
 /*# sourceMappingURL=main.css.map */

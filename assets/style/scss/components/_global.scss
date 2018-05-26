@@ -74,3 +74,9 @@ div.tooltip {
   position: relative;
 }
 
+.line {
+  &:hover {
+    stroke: $ted;
+  }
+}
+

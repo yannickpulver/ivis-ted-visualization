@@ -40,12 +40,25 @@ let buildDots = function (packed, topValue) {
         .range(['#ffb0ae', '#e53025'])
         .interpolate(d3.interpolateHcl);
 
+    var div = d3.select("#canvas-bubbles").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
     let node = svgBubbles.selectAll(".node")
         .data(packed.leaves())
         .enter().append("g")
         .attr("class", "node")
         .attr("transform", function (d) {
             return "translate(" + d.x + "," + d.y + ")";
+        })
+        .on("mouseover", function (d) {
+            div.html(d.data.title)
+                .style("opacity", .9)
+                .style("left", (d.x + "px"))
+                .style("top", ((d.y - 50) + "px"));
+        })
+        .on("mouseout", function (d) {
+            div.style("opacity", 0);
         });
 
     let circle = node.append("circle")
@@ -70,11 +83,6 @@ let buildDots = function (packed, topValue) {
         .append("use")
         .attr("xlink:href", function (d) {
             return "#" + d.id;
-        });
-
-    node.append("title")
-        .text(function (d) {
-            return d.data.title;
         });
 };
 
@@ -222,7 +230,7 @@ let buildSentimentCurves = function (data) {
 
     let dataFormed = d3.values(data).map(function (d, i) {
         let niceObject = [];
-        niceObject.url = d.url
+        niceObject.title = d.title
         let niceData = [];
         for (let j = 1; j <= 5; j++) {
             let dataF = {};
@@ -234,24 +242,28 @@ let buildSentimentCurves = function (data) {
         return niceObject;
     });
 
+    dataFormed = dataFormed.sort(function (a, b) {
+        return d3.descending(+a.views, +b.views);
+    }).slice(0, 10);
+
     var g = svgSentiment.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var div = d3.select("#canvas-sentiment").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
 
     var x = d3.scaleTime().range([0, width]).domain([1, 5]),
         y = d3.scaleLinear().range([height, 0]).domain([1, 5]);
 
     var line = d3.line()
-        .curve(d3.curveBasis)
+        .curve(d3.curveNatural)
         .x(function (d) {
             return x(d.sentimentIndicator);
         })
         .y(function (d) {
             return y(d.sentimentValue);
         });
-
-
-    //dataFormed = dataFormed.slice(1, 2);
-//console.log(dataFormed);
 
     g.append("g")
         .attr("class", "axis axis--x")
@@ -276,10 +288,19 @@ let buildSentimentCurves = function (data) {
             return line(d.values);
         })
         .attr("fill", "none")
-        .attr("stroke", "steelblue")
+        .attr("stroke", "#d7d7d7")
         .attr("stroke-linejoin", "round")
         .attr("stroke-linecap", "round")
-        .attr("stroke-width", 1.5);
+        .attr("stroke-width", 3)
+        .on("mouseover", function (d) {
+            div.html(d.title)
+                .style("opacity", .9)
+                .style("left", (d3.mouse(this)[0] + "px"))
+                .style("top", ((d3.mouse(this)[1] - 20) + "px"));
+        })
+        .on("mouseout", function (d) {
+            div.style("opacity", 0);
+        });
 };
 
 function processData(error, data) {
