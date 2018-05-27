@@ -11,7 +11,6 @@ h1, h2, h3, h4, p {
 }
 
 .header {
-  display: flex;
   padding: 8px 0;
   background: #000;
   .logo {
@@ -22,13 +21,20 @@ h1, h2, h3, h4, p {
   }
 }
 
+.header-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+}
+
 .card {
   padding: 12px;
   background: #fff;
   max-width: 1200px;
   width: 90%;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
-  margin: 0 auto;
+  margin: 24px auto 0;
   display: flex;
 
   .card__inner {
@@ -69,8 +75,16 @@ div.tooltip {
 .bar {
   fill: #d7d7d7;
   //transition: 0.1s all ease-in-out;
-  &.highest, &:hover {
+  &.highest {
     fill: $ted;
+  }
+
+  &.current {
+    fill: #000;
+  }
+
+  &:hover {
+    fill: #000;
   }
 }
 
@@ -78,20 +92,41 @@ div.tooltip {
   position: relative;
 }
 
-.line {
+.sentimentValue {
+  .line-dot {
+    fill: none;
+  }
+
   &:hover {
-    stroke: $ted;
+    .line {
+      stroke: #000;
+    }
+    .line-dot {
+      fill: #000;
+    }
   }
 }
 
+//.line {
+//
+//  &:hover {
+//    stroke: #000;
+//  }
+//
+//}
+
 .circle {
   &:hover {
-    fill: $ted !important;
+    fill: #000 !important;
   }
 }
 
 .tag {
   font-weight: bold;
-
 }
+
+.tag-red {
+  color: $ted;
+}
+
 

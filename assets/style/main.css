@@ -388,12 +388,17 @@ h1, h2, h3, h4, p {
   margin: 0; }
 
 .header {
-  display: flex;
   padding: 8px 0;
   background: #000; }
   .header .logo {
     height: 48px;
     display: block; }
+
+.header-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex; }
 
 .card {
   padding: 12px;
@@ -401,7 +406,7 @@ h1, h2, h3, h4, p {
   max-width: 1200px;
   width: 90%;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
-  margin: 0 auto;
+  margin: 24px auto 0;
   display: flex; }
 
 .selectable-sentence {
@@ -430,19 +435,30 @@ div.tooltip {
 
 .bar {
   fill: #d7d7d7; }
-  .bar.highest, .bar:hover {
+  .bar.highest {
     fill: #e62b1e; }
+  .bar.current {
+    fill: #000; }
+  .bar:hover {
+    fill: #000; }
 
 .canvas {
   position: relative; }
 
-.line:hover {
-  stroke: #e62b1e; }
+.sentimentValue .line-dot {
+  fill: none; }
+.sentimentValue:hover .line {
+  stroke: #000; }
+.sentimentValue:hover .line-dot {
+  fill: #000; }
 
 .circle:hover {
-  fill: #e62b1e !important; }
+  fill: #000 !important; }
 
 .tag {
   font-weight: bold; }
+
+.tag-red {
+  color: #e62b1e; }
 
 /*# sourceMappingURL=main.css.map */

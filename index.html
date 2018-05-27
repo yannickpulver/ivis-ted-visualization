@@ -8,37 +8,43 @@
 </head>
 <body>
 <header class="header">
+    <div class="header-container">
+        <img src="assets/images/logo/logo_1.svg" alt="Logo" class="logo">
 
-    <img src="assets/images/logo/logo_1.svg" alt="Logo" class="logo">
-
-    <div class="selectable-sentence">
-        <p>I want to hold a talk about</p>
-        <div class="select-style">
-            <select name="category" id="select-category" onchange="onChangeCategory()">
-                <option value="1">Whatever</option>
-            </select>
+        <div class="selectable-sentence">
+            <p>I want to hold a talk about</p>
+            <div class="select-style">
+                <select name="category" id="select-category" onchange="onChangeCategory()">
+                    <option value="1">Whatever</option>
+                </select>
+            </div>
+            <p>which should be</p>
+            <div class="select-style">
+                <select name="sentiment" id="select-rating" onchange="onChangeRating()">
+                    <option value="1">Whatever</option>
+                </select>
+            </div>
+            </p>
         </div>
-        <p>which should be</p>
-        <div class="select-style">
-            <select name="sentiment">
-                <option value="1">Whatever</option>
-            </select>
-        </div>
-        </p>
     </div>
 </header>
 
 <section class="card">
+    <div class="left">
+        <p><span class="tag tag-red">TED Talks</span>, visualised as drops of sauce by their <span class="tag">view count</span> (relatively to shown data).</p>
+        <p>Saturated by <span class="tag" id="bubbles-sortby">view count</span></p>
     <div id="canvas-bubbles" class="canvas"></div>
+    </div>
 
     <div class="right">
-    <p>According to the people, talks about <span id="selected-category-label" class="tag">Whatever</span> are rather <span id="selected-category-rating" class="tag">...</span></p>
-    <div id="canvas-lines" class="canvas"></div>
-
-    <p>The most viewed talk about <span class="tag">#music</span> is <span
-            class="tag">Do schools kill creativity?</span>. The sentiment of this talk was <span class="tag">mostly positive</span>.
-        The average with this tag is <span class="tag">positive</span></p>
-    <div id="canvas-sentiment" class="canvas"></div>
+        <p>According to the people, talks about <span id="selected-category-label" class="tag">Whatever</span> are
+            rather <span id="selected-category-rating" class="tag">...</span></p>
+        <div id="canvas-lines" class="canvas"></div>
+        <br>
+        <br>
+        <p>The most viewed talk in this category is <span class="tag" id="selected-category-mostviewed">Do schools kill creativity?</span>. The sentiment of this talk was <span class="tag">mostly positive</span>.
+            The average with this tag is <span class="tag">positive</span></p>
+        <div id="canvas-sentiment" class="canvas"></div>
     </div>
 
 </section>
