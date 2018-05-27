@@ -21,9 +21,17 @@ d3.selection.prototype.moveToFront = function () {
         this.parentNode.appendChild(this);
     });
 };
+d3.selection.prototype.moveToBack = function () {
+    return this.each(function () {
+        var firstChild = this.parentNode.firstChild;
+        if (firstChild) {
+            this.parentNode.insertBefore(this, firstChild);
+        }
+    });
+};
 
 const margin = {top: 20, right: 20, bottom: 20, left: 20};
-const marginTiny = {top: 40, right: 5, bottom: 20, left: 5};
+const marginTiny = {top: 20, right: 5, bottom: 20, left: 5};
 const width = canvasWidth - margin.left - margin.right;
 const widthTiny = canvasWidthTiny - marginTiny.left - marginTiny.right;
 const height = canvasHeight - margin.top - margin.bottom;
@@ -39,6 +47,7 @@ let fullData = [];
 let currentData = [];
 let currentCategory = "";
 let currentRating = "";
+let urlCurrentCategory = "";
 let isSelectRatingGenerated = false;
 
 function visualizeData() {
@@ -101,6 +110,9 @@ let displayDots = function (packed, topValue) {
         .data(packed.leaves())
         .enter().append("g")
         .attr("class", "node")
+        .attr("id", function (d) {
+            return "bubble_" + d.data.url.slice(26);
+        })
         .attr("transform", function (d) {
             return "translate(" + d.x + "," + d.y + ")";
         })
@@ -215,7 +227,7 @@ let displayBars = function (data) {
             div.html("<span class='tag'>" + d.key + "</span><br>" + percentageScale(d.value) + "%")
                 .style("opacity", .9)
                 .style("left", (x(d.key) + x.bandwidth()) + "px")
-                .style("top", (y(d.value) - 20) + "px");
+                .style("top", (y(d.value) - 50) + "px");
         })
         .on("mouseout", function (d) {
             div.style("opacity", 0);
@@ -310,6 +322,8 @@ let buildSentimentCurves = function (data) {
     let dataFormed = d3.values(data).map(function (d, i) {
         let niceObject = [];
         niceObject.title = d.title;
+        niceObject.url = d.url;
+        niceObject.views = d.views;
         let niceData = [];
         for (let j = 1; j <= 5; j++) {
             let dataF = {};
@@ -322,8 +336,16 @@ let buildSentimentCurves = function (data) {
     });
 
     dataFormed = dataFormed.sort(function (a, b) {
+        if (a.views === undefined) { a.views = 0; }
+        if (b.views === undefined) { b.views = 0; }
         return d3.descending(+a.views, +b.views);
     }).slice(0, 30);
+
+    console.log(dataFormed);
+
+    dataFormed = dataFormed.sort(function (a, b) {
+        return d3.ascending(+a.views, +b.views);
+    });
 
     var g = svgSentiment.append("g")
         .attr("transform", "translate(" + marginTiny.left + "," + marginTiny.top + ")");
@@ -349,41 +371,38 @@ let buildSentimentCurves = function (data) {
     var goodOldLine = g.selectAll(".sentimentValue")
         .data(dataFormed)
         .enter().append("g")
-        .attr("class", "sentimentValue");
-
-
-    goodOldLine.selectAll("line-dot")
-        .data(function (d) {
-            return d.values;
-        })
-        .enter().append("circle")
-        .attr("r", 3.5)
-        .attr("cx", function (d) {
-            return x(d.sentimentIndicator);
-        })
-        .attr("cy", function (d) {
-            return y(d.sentimentValue);
-        })
-        .attr("class", "line-dot");
+        .attr("class", function (d) {
+            return "sentimentValue" + (d.url === urlCurrentCategory ? " selected" : "");
+        });
 
     goodOldLine.append("path")
         .attr("class", "line")
         .attr("d", function (d) {
-            return line(d.values);
+            return line(isNaN(d.values[0].sentimentValue) ? 0 : d.values);
         })
         .attr("fill", "none")
         .attr("stroke", "#d7d7d7")
         .attr("stroke-width", 2)
         .on("mouseover", function (d) {
+            var bubble = document.getElementById("bubble_" + (d.url.slice(26)));
+            bubble.classList.add("selected");
+
             d3.select(this.parentNode).moveToFront();
-            div.html(d.title)
+            div.html("<span class='tag'>" + d.title + "</span><br>Start: " + getSentimentText(d.values[0].sentimentValue + ".0") + "  |  End: " + getSentimentText(d.values[4].sentimentValue + ".0"))
                 .style("opacity", .9)
                 .style("left", (d3.mouse(this)[0] + "px"))
-                .style("top", ((d3.mouse(this)[1] - 20) + "px"));
+                .style("top", ((d3.mouse(this)[1] - 40) + "px"));
         })
         .on("mouseout", function (d) {
+            var bubble = document.getElementById("bubble_" + (d.url.slice(26)));
+            bubble.classList.remove("selected");
+
+            if (d.url !== urlCurrentCategory) {
+                d3.select(this.parentNode).moveToBack();
+            }
             div.style("opacity", 0);
         });
+
 };
 
 function processData(error, data) {
@@ -444,29 +463,56 @@ function buildCategorySelect(data) {
 }
 
 function onChangeCategory() {
-    var e = document.getElementById("select-category");
-    currentCategory = e.options[e.selectedIndex].value;
+    var selectCategory = document.getElementById("select-category");
+    var selectCategoryLabel = document.getElementById("selected-category-label");
 
-    currentData = fullData.filter(function (d) {
-        return d.tags.includes(currentCategory)
-    });
-
-    var e = document.getElementById("selected-category-label");
-    e.textContent = currentCategory;
+    if (selectCategory.options[selectCategory.selectedIndex].value === "-1") {
+        currentCategory = "";
+        currentData = fullData;
+        selectCategoryLabel.textContent = "Whatever"
+    } else {
+        currentCategory = selectCategory.options[selectCategory.selectedIndex].value;
+        currentData = fullData.filter(function (d) {
+            return d.tags.includes(currentCategory)
+        });
+        selectCategoryLabel.textContent = currentCategory;
+    }
 
     rebuild(currentData);
 }
 
 function onChangeRating() {
     var e = document.getElementById("select-rating");
-    currentRating = e.options[e.selectedIndex].value;
-    currentRating = currentRating[0].toUpperCase() + currentRating.slice(1);
-
     var label = document.getElementById("bubbles-sortby");
-    label.textContent = currentRating;
+
+    if (e.options[e.selectedIndex].value === "-1") {
+        currentRating = "";
+        label.textContent = "view count"
+    } else {
+        currentRating = e.options[e.selectedIndex].value;
+        currentRating = currentRating[0].toUpperCase() + currentRating.slice(1);
+        label.textContent = currentRating;
+    }
 
     rebuild(currentData);
 }
+
+
+function getSentimentText(value) {
+    switch (value) {
+        case "5.0":
+            return "very positive"
+        case "4.0":
+            return "positive"
+        case "3.0":
+            return "neutral"
+        case "2.0":
+            return "negative"
+        case "1.0":
+            return "very negative"
+    }
+}
+
 
 function buildText(data) {
 
@@ -479,6 +525,10 @@ function buildText(data) {
     var e = document.getElementById("selected-category-mostviewed");
     e.textContent = dataFormed[0].title;
 
+    var sentimentLabel = document.getElementById("selected-category-sentiment");
+    sentimentLabel.textContent = getSentimentText(dataFormed[0].sentiment1);
+
+    urlCurrentCategory = dataFormed[0].url;
 }
 
 function rebuild(data) {

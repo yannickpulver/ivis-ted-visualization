@@ -379,7 +379,7 @@ template, [hidden] {
   outline: none; }
 
 body {
-  background: #f4f4f4; }
+  background: #fff; }
   body * {
     font-family: "proxima-nova", sans-serif; }
 
@@ -402,10 +402,8 @@ h1, h2, h3, h4, p {
 
 .card {
   padding: 12px;
-  background: #fff;
   max-width: 1200px;
   width: 90%;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
   margin: 24px auto 0;
   display: flex; }
 
@@ -445,12 +443,27 @@ div.tooltip {
 .canvas {
   position: relative; }
 
+.container-sentiment {
+  display: flex; }
+  .container-sentiment .scale {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    justify-content: space-between; }
+    .container-sentiment .scale i {
+      color: #9e9e9e; }
+
 .sentimentValue .line-dot {
   fill: none; }
+.sentimentValue.selected .line {
+  stroke: #e62b1e; }
 .sentimentValue:hover .line {
   stroke: #000; }
 .sentimentValue:hover .line-dot {
   fill: #000; }
+
+.node.selected .circle {
+  fill: #000 !important; }
 
 .circle:hover {
   fill: #000 !important; }

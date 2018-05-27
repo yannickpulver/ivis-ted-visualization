@@ -1,5 +1,5 @@
 body {
-  background: #f4f4f4;
+  background: #fff;
   * {
     font-family: "proxima-nova", sans-serif;
   }
@@ -30,10 +30,10 @@ h1, h2, h3, h4, p {
 
 .card {
   padding: 12px;
-  background: #fff;
+  //background: #fff;
   max-width: 1200px;
   width: 90%;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+  //box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
   margin: 24px auto 0;
   display: flex;
 
@@ -92,10 +92,31 @@ div.tooltip {
   position: relative;
 }
 
+.container-sentiment {
+  display: flex;
+
+  .scale {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    justify-content: space-between;
+    i {
+      color: #9e9e9e;
+    }
+  }
+}
+
 .sentimentValue {
   .line-dot {
     fill: none;
   }
+
+  &.selected {
+    .line {
+      stroke: $ted;
+    }
+  }
+
 
   &:hover {
     .line {
@@ -114,6 +135,13 @@ div.tooltip {
 //  }
 //
 //}
+
+
+.node.selected {
+  .circle {
+    fill: #000 !important;
+  }
+}
 
 .circle {
   &:hover {
