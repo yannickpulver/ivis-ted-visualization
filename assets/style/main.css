@@ -388,28 +388,30 @@ h1, h2, h3, h4, p {
   margin: 0; }
 
 .header {
-  padding: 24px 0; }
+  display: flex;
+  padding: 8px 0;
+  background: #000; }
   .header .logo {
-    max-width: 400px;
-    width: 90%;
-    margin: 0 auto;
+    height: 48px;
     display: block; }
 
 .card {
   padding: 12px;
   background: #fff;
-  max-width: 800px;
+  max-width: 1200px;
   width: 90%;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
-  display: block;
-  margin: 0 auto; }
+  margin: 0 auto;
+  display: flex; }
 
 .selectable-sentence {
-  padding-bottom: 24px; }
+  align-self: center;
+  margin-left: 24px; }
   .selectable-sentence p, .selectable-sentence select {
     display: inline-block;
     font-size: 20px;
-    line-height: 1.5em; }
+    line-height: 1.5em;
+    color: #fff; }
   .selectable-sentence select {
     font-weight: 700; }
   .selectable-sentence p {
@@ -439,5 +441,8 @@ div.tooltip {
 
 .circle:hover {
   fill: #e62b1e !important; }
+
+.tag {
+  font-weight: bold; }
 
 /*# sourceMappingURL=main.css.map */

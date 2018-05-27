@@ -1,23 +1,25 @@
-const canvHeight = 600, canvWidth = 800;
+const canvasHeight = 600,
+    canvasHeightTiny = 300,
+    canvasWidth = 700,
+    canvasWidthTiny = 500;
 
 const svgBubbles = d3.select("#canvas-bubbles").append("svg")
-    .attr("width", canvWidth)
-    .attr("height", canvHeight)
-    .style("border", "1px solid #ccc");
+    .attr("width", canvasWidth)
+    .attr("height", canvasHeight);
 
 const svgLines = d3.select("#canvas-lines").append("svg")
-    .attr("width", canvWidth)
-    .attr("height", canvHeight)
-    .style("border", "1px solid #ccc");
+    .attr("width", canvasWidthTiny)
+    .attr("height", canvasHeightTiny);
 
 const svgSentiment = d3.select("#canvas-sentiment").append("svg")
-    .attr("width", canvWidth)
-    .attr("height", canvHeight)
-    .style("border", "1px solid #ccc");
+    .attr("width", canvasWidthTiny)
+    .attr("height", canvasHeightTiny);
 
 const margin = {top: 20, right: 20, bottom: 20, left: 20};
-const width = canvWidth - margin.left - margin.right;
-const height = canvHeight - margin.top - margin.bottom;
+const width = canvasWidth - margin.left - margin.right;
+const widthTiny = canvasWidthTiny - margin.left - margin.right;
+const height = canvasHeight - margin.top - margin.bottom;
+const heightTiny = canvasHeightTiny - margin.top - margin.bottom;
 
 let format = d3.format(",d");
 
@@ -124,7 +126,7 @@ let displayDots = function (packed, topValue) {
         });
 };
 
-let displayLines = function (data) {
+let displayBars = function (data) {
     var dataFormed = d3.values(data).map(function (d, i) {
         var dataF = {};
         dataF.key = Object.keys(data)[i];
@@ -132,8 +134,8 @@ let displayLines = function (data) {
         return dataF;
     });
 
-    var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
-        y = d3.scaleLinear().rangeRound([height, 0]);
+    var x = d3.scaleBand().rangeRound([0, widthTiny]).padding(0.1),
+        y = d3.scaleLinear().rangeRound([heightTiny, 0]);
 
 
     var sum = d3.sum(dataFormed, function (d) {
@@ -141,7 +143,6 @@ let displayLines = function (data) {
     });
 
     var percentageScale = d3.scaleLinear().domain([0, sum]).rangeRound([0, 100]);
-
 
     var g = svgLines.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -167,6 +168,10 @@ let displayLines = function (data) {
         .data(dataFormed)
         .enter().append("rect")
         .attr("class", function (d) {
+            if (y(d.value) === 0) {
+                var e = document.getElementById("selected-category-rating");
+                e.textContent = d.key;
+            }
             return "bar" + (y(d.value) === 0 ? " highest" : "")
         })
         .attr("x", function (d) {
@@ -261,7 +266,11 @@ let buildBars = function (data) {
         })
         .entries(categoryMap);
 
-    displayLines(categoryMatching);
+
+    console.log(categoryMatching);
+
+
+    displayBars(categoryMatching);
 
 
 };
@@ -293,8 +302,8 @@ let buildSentimentCurves = function (data) {
         .attr("class", "tooltip")
         .style("opacity", 0);
 
-    var x = d3.scaleTime().range([0, width]).domain([1, 5]),
-        y = d3.scaleLinear().range([height, 0]).domain([1, 5]);
+    var x = d3.scaleTime().range([0, widthTiny]).domain([1, 5]),
+        y = d3.scaleLinear().range([heightTiny, 0]).domain([1, 5]);
 
     var line = d3.line()
         .curve(d3.curveBasis)
@@ -396,6 +405,9 @@ function onChangeCategory() {
     currentData = fullData.filter(function (d) {
         return d.tags.includes(currentCategory)
     });
+
+    var e = document.getElementById("selected-category-label");
+    e.textContent = currentCategory;
 
     console.log(currentData.length);
 

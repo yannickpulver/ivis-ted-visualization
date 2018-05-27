@@ -8,20 +8,10 @@
 </head>
 <body>
 <header class="header">
-    <img src="assets/images/logo/logo.svg" alt="Logo" class="logo">
-</header>
 
-<section class="card">
+    <img src="assets/images/logo/logo_1.svg" alt="Logo" class="logo">
 
     <div class="selectable-sentence">
-        <!--<p>I am a</p>-->
-        <!--<div class="select-style">-->
-            <!--<select name="job" class="select-job">-->
-                <!--<option value="1">Whatever</option>-->
-            <!--</select>-->
-        <!--</div>-->
-        <!--<p>that wants to hold</p>-->
-        <!--<br>-->
         <p>I want to hold a talk about</p>
         <div class="select-style">
             <select name="category" id="select-category" onchange="onChangeCategory()">
@@ -36,17 +26,20 @@
         </div>
         </p>
     </div>
+</header>
 
+<section class="card">
     <div id="canvas-bubbles" class="canvas"></div>
 
-    <p>Usually, talks about <span class="tag">#music</span> are rather <span class="tag">funny</span></p>
+    <div class="right">
+    <p>According to the people, talks about <span id="selected-category-label" class="tag">Whatever</span> are rather <span id="selected-category-rating" class="tag">...</span></p>
     <div id="canvas-lines" class="canvas"></div>
 
     <p>The most viewed talk about <span class="tag">#music</span> is <span
             class="tag">Do schools kill creativity?</span>. The sentiment of this talk was <span class="tag">mostly positive</span>.
         The average with this tag is <span class="tag">positive</span></p>
     <div id="canvas-sentiment" class="canvas"></div>
-
+    </div>
 
 </section>
 
