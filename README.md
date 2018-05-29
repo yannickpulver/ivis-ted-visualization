@@ -2,7 +2,8 @@
 
 A visualization of more than 2000 TED talks. Made as a project in ivis @ FHNW.
 
-![logo](assets/images/logo/logo.png "Secret Sauce")
+
+<img src="assets/images/logo/logo.png" width="40%">
 
 ## Getting started
 
