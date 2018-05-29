@@ -1,4 +1,4 @@
-const canvasHeight = 750,
+const canvasHeight = 700,
     canvasHeightTiny = 300,
     canvasWidth = 700,
     canvasWidthTiny = 500;
@@ -31,11 +31,14 @@ d3.selection.prototype.moveToBack = function () {
 };
 
 const margin = {top: 20, right: 20, bottom: 20, left: 20};
-const marginTiny = {top: 20, right: 5, bottom: 20, left: 5};
+const marginTiny = {top: 20, right: 30, bottom: 20, left: 70};
+const marginSentiment = {top: 20, right: 5, bottom: 20, left: 5};
 const width = canvasWidth - margin.left - margin.right;
 const widthTiny = canvasWidthTiny - marginTiny.left - marginTiny.right;
+const widthSentiment = canvasWidthTiny - marginSentiment.left - marginSentiment.right;
 const height = canvasHeight - margin.top - margin.bottom;
 const heightTiny = canvasHeightTiny - marginTiny.top - marginTiny.bottom;
+const heightSentiment = canvasWidthTiny - marginSentiment.top - marginSentiment.bottom;
 
 let format = d3.format(",d");
 
@@ -166,11 +169,6 @@ let displayBars = function (data) {
 
     buildRatingSelect(dataFormed);
 
-
-    var x = d3.scaleBand().rangeRound([0, widthTiny]).padding(0.1),
-        y = d3.scaleLinear().rangeRound([heightTiny, 0]);
-
-
     var sum = d3.sum(dataFormed, function (d) {
         return d.value;
     });
@@ -184,54 +182,64 @@ let displayBars = function (data) {
         .attr("class", "tooltip")
         .style("opacity", 0);
 
-    x.domain(d3.values(dataFormed).map(function (d) {
-        return d.key;
-    }));
-    y.domain([0, d3.max(dataFormed, function (d) {
-        return d.value;
-    })]);
-    let innerg = g.append("g")
-        .attr("class", "axis axis--x")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
+
+    var x = d3.scaleLinear()
+        .range([0, widthTiny])
+        .domain([0, d3.max(dataFormed, function (d) {
+            return d.value;
+        })]);
+
+    var y = d3.scaleBand().rangeRound([heightTiny, 0]).padding(0.1)
+        .domain(d3.values(dataFormed).map(function (d) {
+            return d.key;
+        }));
+
+    svgLines.append("g")
+        .attr('class', 'y axis')
+        .attr('transform', 'translate(' + [marginTiny.left, marginTiny.top] + ')')
+        .call(d3.axisLeft(y));
+
 
     svgLines.selectAll(".bar").remove();
 
-
-    g.selectAll(".bar")
+    var bars = g.selectAll(".bar")
         .data(dataFormed)
-        .enter().append("rect")
-        .attr("class", function (d) {
-            if (y(d.value) === 0) {
-                var e = document.getElementById("selected-category-rating");
-                e.textContent = d.key;
-            }
+        .enter().append("g");
 
-            if (d.key === currentRating.toLowerCase()) {
-                return "bar current"
-            } else {
-                return "bar" + (y(d.value) === 0 ? " highest" : "")
-            }
+    bars.append("rect").attr("class", function (d) {
+        if (x(d.value) === widthTiny) {
+            var e = document.getElementById("selected-category-rating");
+            e.textContent = d.key;
+        }
+        if (d.key === currentRating.toLowerCase()) {
+            return "bar current"
+        } else {
+            return "bar" + (x(d.value) === widthTiny ? " highest" : "")
+        }
+    })
+        .attr("x", 0)
+        .attr("y", function (d) {
+            return y(d.key);
+        })
+        .attr("height", y.bandwidth())
+        .attr("width", function (d) {
+            return x(d.value);
+        });
+
+    bars.append("text")
+        .attr("class", "label")
+        .attr("y", function (d) {
+            return y(d.key) + y.bandwidth() / 2;
         })
         .attr("x", function (d) {
-            return x(d.key);
+            return x(d.value) + 10;
         })
-        .attr("y", function (d) {
-            return y(d.value);
-        })
-        .attr("width", x.bandwidth())
-        .attr("height", function (d) {
-            return height - y(d.value);
-        })
-        .on("mouseover", function (d) {
-            div.html("<span class='tag'>" + d.key + "</span><br>" + percentageScale(d.value) + "%")
-                .style("opacity", .9)
-                .style("left", (x(d.key) + x.bandwidth()) + "px")
-                .style("top", (y(d.value) - 50) + "px");
-        })
-        .on("mouseout", function (d) {
-            div.style("opacity", 0);
+        .attr("dy", "0.32em")
+        .text(function (d) {
+            return percentageScale(d.value) + "%";
         });
+
+
 };
 
 
@@ -336,8 +344,12 @@ let buildSentimentCurves = function (data) {
     });
 
     dataFormed = dataFormed.sort(function (a, b) {
-        if (a.views === undefined) { a.views = 0; }
-        if (b.views === undefined) { b.views = 0; }
+        if (a.views === undefined) {
+            a.views = 0;
+        }
+        if (b.views === undefined) {
+            b.views = 0;
+        }
         return d3.descending(+a.views, +b.views);
     }).slice(0, 30);
 
@@ -348,13 +360,13 @@ let buildSentimentCurves = function (data) {
     });
 
     var g = svgSentiment.append("g")
-        .attr("transform", "translate(" + marginTiny.left + "," + marginTiny.top + ")");
+        .attr("transform", "translate(" + marginSentiment.left + "," + marginTiny.top + ")");
 
     var div = d3.select("#canvas-sentiment").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0);
 
-    var x = d3.scaleTime().range([0, widthTiny]).domain([1, 5]),
+    var x = d3.scaleTime().range([0, widthSentiment]).domain([1, 5]),
         y = d3.scaleLinear().range([heightTiny, 0]).domain([1, 5]);
 
     var line = d3.line()

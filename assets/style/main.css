@@ -400,6 +400,13 @@ h1, h2, h3, h4, p {
   margin: 0 auto;
   display: flex; }
 
+.header-link {
+  align-self: center;
+  text-decoration: none;
+  color: #fff; }
+  .header-link:hover {
+    color: #e6e6e6; }
+
 .card {
   padding: 12px;
   max-width: 1200px;
@@ -409,7 +416,9 @@ h1, h2, h3, h4, p {
 
 .selectable-sentence {
   align-self: center;
-  margin-left: 24px; }
+  margin-left: 24px;
+  flex-grow: 1;
+  margin-right: auto; }
   .selectable-sentence p, .selectable-sentence select {
     display: inline-block;
     font-size: 20px;
@@ -439,6 +448,12 @@ div.tooltip {
     fill: #000; }
   .bar:hover {
     fill: #000; }
+    .bar:hover + .label {
+      display: block; }
+
+text.label {
+  font-size: 11px;
+  display: none; }
 
 .canvas {
   position: relative; }
@@ -473,5 +488,12 @@ div.tooltip {
 
 .tag-red {
   color: #e62b1e; }
+
+.canvas-lines .tick line {
+  display: none; }
+.canvas-lines .tick text {
+  fill: #a9a9a9; }
+.canvas-lines .domain {
+  display: none; }
 
 /*# sourceMappingURL=main.css.map */

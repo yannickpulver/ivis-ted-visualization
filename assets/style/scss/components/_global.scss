@@ -28,6 +28,15 @@ h1, h2, h3, h4, p {
   display: flex;
 }
 
+.header-link {
+  align-self: center;
+  text-decoration: none;
+  color: $white;
+  &:hover {
+    color: darken($white, 10);
+  }
+}
+
 .card {
   padding: 12px;
   //background: #fff;
@@ -44,6 +53,8 @@ h1, h2, h3, h4, p {
 .selectable-sentence {
   align-self: center;
   margin-left: 24px;
+  flex-grow: 1;
+  margin-right: auto;
   p, select {
     display: inline-block;
     font-size: 20px;
@@ -85,7 +96,16 @@ div.tooltip {
 
   &:hover {
     fill: #000;
+
+    & + .label {
+      display: block;
+    }
   }
+}
+
+text.label {
+  font-size: 11px;
+  display: none;
 }
 
 .canvas {
@@ -156,5 +176,20 @@ div.tooltip {
 .tag-red {
   color: $ted;
 }
+
+.canvas-lines {
+  .tick {
+    line {
+      display: none;
+    }
+    text {
+      fill: #a9a9a9;
+    }
+  }
+  .domain {
+    display: none;
+  }
+}
+
 
 
