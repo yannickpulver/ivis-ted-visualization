@@ -15,6 +15,15 @@ const svgSentiment = d3.select("#canvas-sentiment").append("svg")
     .attr("width", canvasWidthTiny)
     .attr("height", canvasHeightTiny);
 
+const margin = {top: 20, right: 20, bottom: 20, left: 20};
+const marginTiny = {top: 20, right: 30, bottom: 20, left: 70};
+const marginSentiment = {top: 20, right: 5, bottom: 20, left: 5};
+const width = canvasWidth - margin.left - margin.right;
+const widthTiny = canvasWidthTiny - marginTiny.left - marginTiny.right;
+const widthSentiment = canvasWidthTiny - marginSentiment.left - marginSentiment.right;
+const height = canvasHeight - margin.top - margin.bottom;
+const heightTiny = canvasHeightTiny - marginTiny.top - marginTiny.bottom;
+
 // https://github.com/wbkd/d3-extended
 d3.selection.prototype.moveToFront = function () {
     return this.each(function () {
@@ -29,16 +38,6 @@ d3.selection.prototype.moveToBack = function () {
         }
     });
 };
-
-const margin = {top: 20, right: 20, bottom: 20, left: 20};
-const marginTiny = {top: 20, right: 30, bottom: 20, left: 70};
-const marginSentiment = {top: 20, right: 5, bottom: 20, left: 5};
-const width = canvasWidth - margin.left - margin.right;
-const widthTiny = canvasWidthTiny - marginTiny.left - marginTiny.right;
-const widthSentiment = canvasWidthTiny - marginSentiment.left - marginSentiment.right;
-const height = canvasHeight - margin.top - margin.bottom;
-const heightTiny = canvasHeightTiny - marginTiny.top - marginTiny.bottom;
-const heightSentiment = canvasWidthTiny - marginSentiment.top - marginSentiment.bottom;
 
 let format = d3.format(",d");
 
@@ -76,7 +75,6 @@ let buildDots = function (data) {
                     topValue = d.value;
                 }
             }
-
             if (id = d.data.id) {
                 var id, i = id.lastIndexOf(".");
                 d.id = id;
@@ -86,7 +84,6 @@ let buildDots = function (data) {
         });
 
     let packed = pack(root);
-
 
     if (currentRating !== "") {
         topValue = d3.max(data, function (d) {
@@ -234,12 +231,9 @@ let displayBars = function (data) {
         .attr("x", function (d) {
             return x(d.value) + 10;
         })
-        .attr("dy", "0.32em")
         .text(function (d) {
             return percentageScale(d.value) + "%";
         });
-
-
 };
 
 
@@ -353,8 +347,6 @@ let buildSentimentCurves = function (data) {
         return d3.descending(+a.views, +b.views);
     }).slice(0, 30);
 
-    console.log(dataFormed);
-
     dataFormed = dataFormed.sort(function (a, b) {
         return d3.ascending(+a.views, +b.views);
     });
@@ -370,7 +362,6 @@ let buildSentimentCurves = function (data) {
         y = d3.scaleLinear().range([heightTiny, 0]).domain([1, 5]);
 
     var line = d3.line()
-    //.curve(d3.curveBasis)
         .x(function (d) {
             return x(d.sentimentIndicator);
         })
@@ -432,7 +423,6 @@ function buildRatingSelect(data) {
     if (isSelectRatingGenerated) return;
     isSelectRatingGenerated = true;
 
-    let tags = {};
     var selectObject = document.getElementById("select-rating");
 
     data.forEach(function (x) {
@@ -513,15 +503,15 @@ function onChangeRating() {
 function getSentimentText(value) {
     switch (value) {
         case "5.0":
-            return "very positive"
+            return "very positive";
         case "4.0":
-            return "positive"
+            return "positive";
         case "3.0":
-            return "neutral"
+            return "neutral";
         case "2.0":
-            return "negative"
+            return "negative";
         case "1.0":
-            return "very negative"
+            return "very negative";
     }
 }
 
