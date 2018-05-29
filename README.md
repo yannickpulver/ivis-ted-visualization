@@ -30,6 +30,10 @@ The second visualization, on top on the right side shows the percentage division
 
 This visualization can be used to gather information about the talk you want to do. By selecting the category and the rating you want, you can analyse the sentiment your talk needs (like if it should start positive or negative) and see how others made talks like yours. Happy talking!
 
+### Sentiment Analysis
+
+The sentiment analysis of the transcripts was done in Python by using NLP. For this, sentimentally rated Amazon reviews were used as train data. 1 equals negative, 5 equals positive. With that, each transcript was divided into 5 parts and seperately analysed. The idea behind this was to analyse how talks start and end sentimentally. 
+
 ## Demo
 
 [https://yannickpulver.com/ivis/](https://yannickpulver.com/ivis/)
